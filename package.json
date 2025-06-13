@@ -10,7 +10,6 @@
   "keywords": [
     "todo",
     "tasks",
-    "genz",
     "productivity",
     "planner",
     "checklist",
@@ -27,6 +26,7 @@
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.15.1",
     "morgan": "^1.10.0",
