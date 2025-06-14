@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title Todooz App
+    link(rel="stylesheet", href="/styles.css")
+    script.
+      // This script sets the current year dynamically
+      document.addEventListener("DOMContentLoaded", function () {
+        const yearSpan = document.getElementById("year");
+        if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+      });
+  body
+    block content
+
+    footer
+      .container
+        p © <span id="year">2023</span> Todooz App. All rights reserved.

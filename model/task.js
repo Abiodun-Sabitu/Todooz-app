@@ -1,15 +1,49 @@
 const mongoose = require('mongoose');
 
 const taskSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+    validate: {
+      validator: function (v) {
+        return /^[a-zA-Z0-9\s]+$/.test(v) && v.length > 0; // Ensure title is alphanumeric and not empty
+      },
+      message: 'Title must be alphanumeric and cannot be empty'
+    }
+  },
   description: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
+    validate: {
+      validator: function (v) {
+        return v.length > 0;
+      },
+      message: 'Description cannot be empty'
+    }
   },
   state: {
     type: String,
     enum: ['pending', 'completed', 'deleted'],
-    default: 'pending'
+    default: 'pending',
+    required: true,
+    validate: {
+      validator: function (v) {
+        return ['pending', 'completed', 'deleted'].includes(v);
+      },
+      message: 'State must be one of pending, completed, or deleted'
+    }
+  },
+  dueDate: {
+    type: Date,
+    required: true,
+    validate: {
+      validator: function (v) {
+        return v > new Date();
+      },
+      message: 'Due date must be in the future and must be a valid date format (e.g., YYYY-MM-DD)'
+    }
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
@@ -19,5 +53,5 @@ const taskSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 module.exports = mongoose.model('Task', taskSchema);
-// This code defines a Mongoose schema for a task in a todo application.
-// The task has a description, state, and a reference to the user who created it.
+// This code defines a Mongoose schema for a Task model with fields for title, description, state, due date, and createdBy.
+// It includes validation for each field, ensuring that the title and description are not empty, the state is one of the allowed values, and the due date is in the future. The createdBy field references a User model, establishing a relationship between tasks and users. The schema also includes timestamps for createdAt and updatedAt fields.

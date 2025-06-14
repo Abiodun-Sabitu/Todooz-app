@@ -49,7 +49,7 @@ const login = async (req, res, next) => {
 
     // Find user by username
     const user = await User.findOne({ username });
-     console.log("User found:", user);
+     //console.log("User found:", user);
     if (!user) {
       throw createHttpError(401, "Invalid username or password");
     }
