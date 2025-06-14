@@ -6,9 +6,14 @@ const app = require("./src/app");
 connectDB();
 
 const PORT = process.env.PORT || 8000;
-const HOST = process.env.HOST || "localhost";
+
+const isDev = process.env.NODE_ENV === "development";
+
+const HOST = isDev ? "localhost" : "0.0.0.0";
+
 app.listen(PORT, HOST, () => {
-  console.log(`Server is running on ${HOST}:${PORT}`);
+  console.log(`Server running at http://${HOST}:${PORT}`);
 });
+
 
 
