@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  .auth_container
+    h2 Add New Task
+
+    form.auth-form(action="/api/v1/task" method="POST")
+      label(for="title") Title
+      input(type="text", name="title", required, placeholder="e.g. Finish backend project")
+
+      label(for="description") Description
+      textarea(name="description", placeholder="e.g. Complete the backend project for the Todooz app")
+
+      label(for="dueDate") Due Date
+      input(type="date", name="dueDate")
+
+      label(for="state") State
+      select(name="state")
+        option(value="pending" selected) Pending
+        option(value="completed") Completed
+        option(value="deleted") Deleted
+
+      button(type="submit") Create Task
+
+    a.btn-logout(href="/api/v1/dashboard") Cancel

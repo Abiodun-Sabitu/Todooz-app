@@ -1,20 +1,23 @@
+/* Base Styles */
 body {
-  font-family: 'Segoe UI', Arial, sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
   background: #f6f8fa;
   margin: 0;
   padding: 0;
+  height: 90vh;
 }
 
 .container {
-  max-width: 500px;
-  margin: 80px auto;
+  max-width: 100%;
+  height: 100%;
   background: #fff;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   padding: 40px 30px;
   text-align: center;
 }
 
+/* Headings & Text */
 h1 {
   font-size: 3rem;
   color: #e74c3c;
@@ -26,7 +29,8 @@ p {
   margin-bottom: 30px;
 }
 
-a {
+/* Buttons & Links */
+a, button {
   display: inline-block;
   padding: 10px 24px;
   background: #3498db;
@@ -34,8 +38,194 @@ a {
   border-radius: 5px;
   text-decoration: none;
   transition: background 0.2s;
+  border: none;
+  cursor: pointer;
 }
 
-a:hover {
+a:hover,
+button:hover {
   background: #217dbb;
+}
+
+/* Task Table */
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 30px 0 10px;
+}
+
+.no-tasks {
+  color: #888;
+  font-style: italic;
+  margin: 20px 0;
+}
+
+.task-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 30px 0;
+  font-size: 0.9rem;
+}
+
+.task-table th,
+.task-table td {
+  border: 1px solid #eaeaea;
+  padding: 12px 10px;
+  text-align: left;
+}
+
+.task-table th {
+  background: #f6f8fa;
+  color: #333;
+}
+
+/* Task State Badges */
+.state {
+  padding: 4px 10px;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.95em;
+}
+
+.state.pending { background: #f39c12; }
+.state.completed { background: #27ae60; }
+.state.deleted { background: #e74c3c; }
+
+/* Buttons by Type */
+.btn-edit,
+.btn-delete,
+.btn-add,
+.btn-logout {
+  display: inline-block;
+  margin: 0 4px;
+  padding: 6px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1em;
+  transition: background 0.2s;
+}
+
+.btn-edit {
+  background: #2980b9;
+  color: #fff;
+}
+.btn-edit:hover {
+  background: #1c5d85;
+}
+
+.btn-delete {
+  background: #e74c3c;
+  color: #fff;
+}
+.btn-delete:hover {
+  background: #b93a2b;
+}
+
+.btn-add {
+  background: #27ae60;
+  color: #fff;
+  margin-top: 20px;
+}
+.btn-add:hover {
+  background: #1e874b;
+}
+
+.btn-logout {
+  background: #888;
+  color: #fff;
+  margin-top: 20px;
+}
+.btn-logout:hover {
+  background: #555;
+}
+
+/* Flash Alerts (Optional) */
+.alert-success {
+  background: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.alert-error {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+/* Responsive Table Wrapper */
+.table-wrapper {
+  overflow-x: auto;
+}
+.auth-form {
+  text-align: left;
+  margin-top: 30px;
+}
+
+.auth-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #333;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.auth-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background 0.2s ease;
+}
+
+.auth-form button:hover {
+  background-color: #217dbb;
+}
+
+.auth-form a {
+  color: #3498db;
+  text-decoration: none;
+  margin-left: 6px;
+}
+
+.auth-form a:hover {
+  text-decoration: underline;
+}
+
+.auth_container{
+   padding-top:100px;
+   max-width: 400px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.auth-form input,
+.auth-form select,
+.auth-form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
 }

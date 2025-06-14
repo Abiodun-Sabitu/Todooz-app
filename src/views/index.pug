@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  .auth_container
+    h2 Todooz Login
+    p Please enter your credentials to continue
+
+    form(action="/api/v1/auth/login" method="POST" class="auth-form")
+      label(for="username") Username
+      input(type="text" name="username" required placeholder="Enter your username")
+
+      label(for="password") Password
+      input(type="password" name="password" required placeholder="Enter your password")
+
+      button(type="submit") Log In
+
+    p Don’t have an account? &nbsp; &nbsp; &nbsp;
+      a(href="/api/v1/auth/register") Register here

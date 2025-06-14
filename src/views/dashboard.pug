@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  .container
+    h2 Hello, #{user.username}!
+    p Last login: #{user.lastLogin ? user.lastLogin.toLocaleString() : 'First login'}
+
+    .task-header
+      h3 Your Tasks
+      a.btn-add(href="/api/v1/task") + Add New Task
+      a.btn-logout(href="/api/v1/auth/logout") Log Out
+
+    if tasks.length
+      .table-wrapper
+        table.task-table
+          thead
+            tr
+              th Title
+              th Description
+              th Due Date
+              th State
+              th Action
+          tbody
+            each task in tasks
+              tr
+                td #{task.title}
+                td #{task.description || '-'}
+                td #{task.dueDate ? task.dueDate.toLocaleDateString() : 'No due date'}
+                td 
+                  span.state(class=task.state)= task.state
+                td
+                  a.btn-edit(href=`/api/v1/task/${task._id}`) Edit
+    else
+      p.no-tasks You have no tasks yet. Click "+ Add New Task" to create your first one!

@@ -1,11 +1,17 @@
 const createHttpError = require("http-errors");
-const User = require('../model/user');
+const User = require("../model/user");
 const { createToken } = require("../config/jwt");
-
+const { isBrowserRequest } = require("../utils/isBrowserRequest");
 
 const register = async (req, res, next) => {
-   // console.log("Registering user:", req.body);
+  // console.log("Registering user:", req.body);
   try {
+if (req.method === "GET" && isBrowserRequest(req)) {
+      // Render the registration form for browser requests
+      return res.render("register");
+    }
+
+
     const { username, email, password } = req.body;
 
     // Validate input
@@ -30,6 +36,11 @@ const register = async (req, res, next) => {
 
     await newUser.save();
 
+    if (isBrowserRequest(req)) {
+      // Redirect to login page for browser requests
+      return res.render("registerSuccess");
+    }
+
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
     next(error);
@@ -37,9 +48,9 @@ const register = async (req, res, next) => {
 };
 
 const login = async (req, res, next) => {
-
-      //console.log("Registering user:", req.body);
+  //console.log("Registering user:", req.body);
   try {
+    
     const { username, password } = req.body;
 
     // Validate input
@@ -49,11 +60,10 @@ const login = async (req, res, next) => {
 
     // Find user by username
     const user = await User.findOne({ username });
-     //console.log("User found:", user);
+    //console.log("User found:", user);
     if (!user) {
       throw createHttpError(401, "Invalid username or password");
     }
-   
 
     // Check password
     const isMatch = await user.comparePassword(password);
@@ -75,6 +85,10 @@ const login = async (req, res, next) => {
     user.lastLogin = new Date();
     await user.save();
 
+    if (isBrowserRequest(req)) {
+      return res.redirect("/api/v1/dashboard"); // Redirect to dashboard for browser requests
+    }
+
     // Respond with user data and token
     res.status(200).json({
       message: "Login successful",
@@ -91,7 +105,20 @@ const login = async (req, res, next) => {
   }
 };
 
+const logout = (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+  });
+  if (req.method === "GET" && isBrowserRequest(req)) {
+    return res.redirect("/"); // Redirect to home page for browser requests
+  } 
+  res.status(200).json({ message: "Logged out successfully" });
+}
+
 module.exports = {
   register,
   login,
+  logout
 };

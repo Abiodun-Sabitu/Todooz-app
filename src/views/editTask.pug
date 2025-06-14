@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  .auth_container
+    h2 Edit Task
+
+    form.auth-form(action=`/api/v1/task/${task._id}?_method=PATCH` method="POST")
+      label(for="title") Title
+      input(type="text", name="title", required, value=task.title)
+
+      label(for="description") Description
+      textarea(name="description" )= task.description
+
+      label(for="dueDate") Due Date
+      input(type="date", name="dueDate", value=task.dueDate ? task.dueDate.toISOString().substring(0,10) : '')
+
+      label(for="state") State
+      select(name="state")
+        option(value="pending", selected=task.state === 'pending') Pending
+        option(value="completed", selected=task.state === 'completed') Completed
+        option(value="deleted", selected=task.state === 'deleted') Deleted
+
+      button(type="submit") Save Changes
+
+    a.btn-logout(href="/api/v1/dashboard") Cancel
